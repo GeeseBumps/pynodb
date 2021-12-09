@@ -1,0 +1,11 @@
+README.md
+setup.cfg
+setup.py
+pynodb/__init__.py
+pynodb/database_parser.py
+pynodb/notion_database_client.py
+pynodb.egg-info/PKG-INFO
+pynodb.egg-info/SOURCES.txt
+pynodb.egg-info/dependency_links.txt
+pynodb.egg-info/requires.txt
+pynodb.egg-info/top_level.txt
