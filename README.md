@@ -33,6 +33,7 @@ You can get URL and ID of database when you click `Open as page` button from top
 https://www.notion.so/myworkspace/a8aec43384f447ed84390e8e42c2e089?v=...  
 ----------------------------------|--------- Database ID --------|------
 ```
+Let's use this package quickly.
 ```
 secret_key = "<your-secret-key>"
 database_id = "<your-database-id>"
