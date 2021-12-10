@@ -1,12 +1,102 @@
 # pynodb
 
-## 파싱 가능한 타입
-1. URL (URL) 
-2. 날짜 (DATE) - 종료일은 값을 가져오지 않음
-3. 다중선택 (MULTI_SELECT)
-4. 선택 (SELECT)
-5. 텍스트 (RICH_TEXT) - 순수한 텍스트만 가져옴
-6. 체크박스 (CHECKBOX)
-7. 제목 (TITLE)
-8. 사람 (PEOPLE) - 
+## Introduce
+This is a really simple package for easy use of the Notion database.
+I developed this package to automate the repetitve in-house tasks using Notion.
+We use Notion as frontend and also backend(database table).
+When using pure Notion database API, it gives us different structure for each column's data type.
+Therefore we have to parse json response for each data type and it is very cumbersome.
+With this package, you can get simple and important data which are column name and its value.
+
+## Install
+```
+pip install pynodb
+```
+
+## Requirement
+Please follow this guides first to use this package.
+https://developers.notion.com/docs#:~:text=Postman%20workspace-,Getting%20started,-Learn%20how%20to
+
+## Usage
+If you are ready with Notion configuration, you can start from here.
+There are two modules. 
+
+```
+from pynodb.notion_database_client import NotionDatabaseClient
+from pynodb.database_parser import DatabaseParser
+```
+
+### Quick Start
+Usually, I create my Notion database in Notion first and get its ID to use API
+You can get URL and ID of database when you click `Open as page` button from top right of database.
+
+https://www.notion.so/myworkspace/a8aec43384f447ed84390e8e42c2e089?v=...
+                                  |--------- Database ID --------|
+
+```
+secret_key = "<your-secret-key>"
+database_id = "<your-database-id>"
+
+notion_database_client = NotionDatabaseClient(secret_key=secret_key, database_id=database_id)
+database = notion_database_client.fetch_database()
+print(database)
+
+```
+
+This is original result of Notion API. It is really hard to read.
+
+```
+my_database = DatabaseParser(database)
+parsed_database = my_database.parsed_database
+print(parsed_database)
+```
+After parse using DatabaseParser, you can see the result like this. 
+Each dictionary in list has 'page_id' and all column names as keys.
+
+You can access each data easily like this.
+```
+for page in parsed_database:
+    page_id = page['page_id']
+    date_value = page['DATE']['value']
+    select_value = page['SELECT']['value']
+    ...
+```
+
+### Details
+
+**NotionDatabaseClient**
+This module is for using Notion API. You can fetch, update Notion database and create, update Notion pages using this module.
+
+| Method            | Parameter                   | Description                                                                 |
+|-------------------|-----------------------------|-----------------------------------------------------------------------------|
+| fetch_database()  | `limit(=None)`, `filter(=None)` | Fetch all data from database. You can set limit(number of pages you want) and filter(query condition, please see this [link](https://developers.notion.com/reference/post-database-query)) for this method. |
+| update_database() | `data`(json type body)| Update database. Please see this [link](https://developers.notion.com/reference/update-a-database) for `data` parameter|
+| create_page()     | `data`(json type body)| Create page. Please see this [link](https://developers.notion.com/reference/post-page) for `data` parameter|
+| update_page()     | `page_id`, `data`(json type body)| Update page. Please see this [link](https://developers.notion.com/reference/patch-page) for `data` parameter|
+
+**DatabaseParser**
+There are only private methods in this class. You can only access varaibles.
+
+| Method            | Parameter                   | Description                                                                 |
+|-------------------|-----------------------------|-----------------------------------------------------------------------------|
+| fetch_database()  | limit(=None), filter(=None) | Fetch all data from database. You can set limit and filter for this method. |
+| update_database() | data                        | Update database.                                                            |
+| create_page()     | data                        | Create page.                                                                |
+| update_page()     | page_id, data               | Update page.                                                                |
+
+
+### Supported Data Types of DatabaseParser
+*This supported data types are only related to DatabaseParser.
+You can get any data type using NotionDatabaseClient since it gives you raw json response of Notion API.
+
+1. TITLE
+2. RICH_TEXT
+3. NUMBER
+4. SELECT
+5. MULTI_SELECT
+6. PEOPLE
+7. DATE
+8. URL
+9. CHECKBOX
+
 
