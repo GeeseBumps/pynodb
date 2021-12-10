@@ -1,6 +1,6 @@
 # pynodb
 
-## Introduce
+## Introduction
 This is a really simple package for easy use of the Notion database.
 I developed this package to automate the repetitve in-house tasks using Notion.
 We use Notion as frontend and also backend(database table).
@@ -42,8 +42,10 @@ database = notion_database_client.fetch_database()
 print(database)
 
 ```
-You can get original result from Notion API when printing `database`. This result is quite complex to read and parse \n
-Below is the easy way of parsing your database result. \n
+You can get original result from Notion API when printing `database`. This result is quite complex to read and parse
+
+
+Below is the easy way of parsing your database result.  
 
 ```
 my_database = DatabaseParser(database)
@@ -64,8 +66,8 @@ for page in parsed_database:
 
 ### Details
 
-**NotionDatabaseClient** \n
-This module is for using Notion API. You can fetch, update Notion database and create, update Notion pages using this module. \n
+**NotionDatabaseClient**  
+This module is for using Notion API. You can fetch, update Notion database and create, update Notion pages using this module.  
 
 | Method            | Parameter                   | Description                                                                 |
 |-------------------|-----------------------------|-----------------------------------------------------------------------------|
@@ -74,8 +76,8 @@ This module is for using Notion API. You can fetch, update Notion database and c
 | create_page()     | `data`(json type body)| Create page. Please see this [link](https://developers.notion.com/reference/post-page) for `data` parameter|
 | update_page()     | `page_id`, `data`(json type body)| Update page. Please see this [link](https://developers.notion.com/reference/patch-page) for `data` parameter|
 
-**DatabaseParser** \n
-There are only private methods in this class. You can only access varaibles. \n
+**DatabaseParser**  
+There are only private methods in this class. You can only access varaibles.  
 
 | Variable        | Description                        |
 |-----------------|------------------------------------|
@@ -86,7 +88,7 @@ There are only private methods in this class. You can only access varaibles. \n
 
 ### Supported Data Types of DatabaseParser 
 *This supported data types are only related to DatabaseParser. 
-You can get any data type using **NotionDatabaseClient** since it gives you raw json response of Notion API.
+You can get any data type using **NotionDatabaseClient** since it gives you raw json response of Notion API.  
 
 1. TITLE
 2. RICH_TEXT
