@@ -2,8 +2,8 @@ from pynodb.notion_database_client import NotionDatabaseClient
 from pynodb.database_parser import DatabaseParser
 
 
-secret_key = "secret_ILCNfujAVUHPJkKJs63bBGhgzormQcQ6zPPXmw8JErE"
-database_id = "bea887a425304d8fb16032f4052741cc"
+secret_key = "<your-secret-key>"
+database_id = "<your-database-id>"
 
 
 notion_database_client = NotionDatabaseClient(secret_key=secret_key, database_id=database_id)

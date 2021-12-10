@@ -42,15 +42,15 @@ database = notion_database_client.fetch_database()
 print(database)
 
 ```
-
-This is original result of Notion API. It is really hard to read.
+You can get original result from Notion API when printing `database`. This result is quite complex to read and parse \n
+Below is the easy way of parsing your database result. \n
 
 ```
 my_database = DatabaseParser(database)
 parsed_database = my_database.parsed_database
 print(parsed_database)
 ```
-After parse using DatabaseParser, you can see the result like this. 
+
 Each dictionary in list has 'page_id' and all column names as keys.
 
 You can access each data easily like this.
@@ -64,8 +64,8 @@ for page in parsed_database:
 
 ### Details
 
-**NotionDatabaseClient**
-This module is for using Notion API. You can fetch, update Notion database and create, update Notion pages using this module.
+**NotionDatabaseClient** \n
+This module is for using Notion API. You can fetch, update Notion database and create, update Notion pages using this module. \n
 
 | Method            | Parameter                   | Description                                                                 |
 |-------------------|-----------------------------|-----------------------------------------------------------------------------|
@@ -74,20 +74,19 @@ This module is for using Notion API. You can fetch, update Notion database and c
 | create_page()     | `data`(json type body)| Create page. Please see this [link](https://developers.notion.com/reference/post-page) for `data` parameter|
 | update_page()     | `page_id`, `data`(json type body)| Update page. Please see this [link](https://developers.notion.com/reference/patch-page) for `data` parameter|
 
-**DatabaseParser**
-There are only private methods in this class. You can only access varaibles.
+**DatabaseParser** \n
+There are only private methods in this class. You can only access varaibles. \n
 
-| Method            | Parameter                   | Description                                                                 |
-|-------------------|-----------------------------|-----------------------------------------------------------------------------|
-| fetch_database()  | limit(=None), filter(=None) | Fetch all data from database. You can set limit and filter for this method. |
-| update_database() | data                        | Update database.                                                            |
-| create_page()     | data                        | Create page.                                                                |
-| update_page()     | page_id, data               | Update page.                                                                |
+| Variable        | Description                        |
+|-----------------|------------------------------------|
+| raw_database    | Raw json response from Notion API  |
+| parsed_database | Parsed json which is for easy use. |
+| property_names  | All property names from database.  |
 
 
-### Supported Data Types of DatabaseParser
-*This supported data types are only related to DatabaseParser.
-You can get any data type using NotionDatabaseClient since it gives you raw json response of Notion API.
+### Supported Data Types of DatabaseParser 
+*This supported data types are only related to DatabaseParser. 
+You can get any data type using **NotionDatabaseClient** since it gives you raw json response of Notion API.
 
 1. TITLE
 2. RICH_TEXT
