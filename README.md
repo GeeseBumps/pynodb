@@ -33,7 +33,9 @@ You can get URL and ID of database when you click `Open as page` button from top
 https://www.notion.so/myworkspace/a8aec43384f447ed84390e8e42c2e089?v=...  
 ----------------------------------|--------- Database ID --------|------
 ```
-Let's use this package quickly.
+Let's use this package quickly. This is sample Notion database
+![스크린샷 2021-12-10 오후 2 03 01](https://user-images.githubusercontent.com/64149539/145526315-ade3df8a-def3-4376-bc5f-a9f2d24e3cc9.png)
+
 ```
 secret_key = "<your-secret-key>"
 database_id = "<your-database-id>"
@@ -44,7 +46,7 @@ print(database)
 
 ```
 You can get original result from Notion API when printing `database`. This result is quite complex to read and parse
-
+![스크린샷 2021-12-10 오후 2 07 03](https://user-images.githubusercontent.com/64149539/145526428-15a50949-5ae6-489e-82fb-1cf2b4172caa.png)
 
 Below is the easy way of parsing your database result.  
 
@@ -53,7 +55,7 @@ my_database = DatabaseParser(database)
 parsed_database = my_database.parsed_database
 print(parsed_database)
 ```
-
+![스크린샷 2021-12-10 오후 2 10 04](https://user-images.githubusercontent.com/64149539/145526464-d5fd14d4-fa66-4761-b1e7-eda79be5b3f2.png)
 Each dictionary in list has 'page_id' and all column names as keys.
 
 You can access each data easily like this.
