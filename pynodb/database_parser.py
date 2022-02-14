@@ -107,6 +107,7 @@ class DatabaseParser:
         for page in database:
             _temp_page = {}
             _temp_page["page_id"] = page["id"]
+            _temp_page["page_url"] = page["url"]
             for property_name in page["properties"]:
                 property_data = {}
                 property_metadata = page["properties"][property_name]
