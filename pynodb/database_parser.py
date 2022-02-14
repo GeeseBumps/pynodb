@@ -15,6 +15,7 @@ class DatabaseParser:
             "title": lambda x: self._parse_title_value(x),
             "people": lambda x: self._parse_people_value(x),
             "relation": lambda x: self._parse_relation_value(x),
+            "rollup": lambda x: self._parse_rollup_value(x),
         }
         self.parsed_database = self._parse_database(database)
 
@@ -85,6 +86,13 @@ class DatabaseParser:
             for relation in value_data:
                 values.append(relation["id"])
             return values
+        return None
+    
+    def _parse_rollup_value(self, value_data):
+        if value_data:
+            if value_data["type"] == "array":
+                type = value_data["array"][0]["type"]
+                return value_data["array"][0][type]
         return None
     
     def _parse_database(self, database):
