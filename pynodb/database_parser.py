@@ -13,7 +13,8 @@ class DatabaseParser:
             "rich_text": lambda x: self._parse_rich_text_value(x),
             "checkbox": lambda x: self._parse_checkbox_value(x),
             "title": lambda x: self._parse_title_value(x),
-            "people": lambda x: self._parse_people_value(x)
+            "people": lambda x: self._parse_people_value(x),
+            "relation": lambda x: self._parse_relation_value(x),
         }
         self.parsed_database = self._parse_database(database)
 
@@ -76,6 +77,14 @@ class DatabaseParser:
                 if value["type"] == "text":
                     text += value["plain_text"]
             return text
+        return None
+    
+    def _parse_relation_value(self, value_data):
+        if len(value_data) != 0:
+            values = []
+            for relation in value_data:
+                values.append(relation["id"])
+            return values
         return None
     
     def _parse_database(self, database):
