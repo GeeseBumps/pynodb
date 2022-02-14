@@ -43,9 +43,14 @@ class NotionDatabaseClient:
 
         return response
 
-    
     def create_page(self, data):
         url = 'https://api.notion.com/v1/pages'
         response = requests.post(url, data=json.dumps(data), headers=self.headers)
+
+        return response
+    
+    def get_block_children(self, block_id):
+        notion_block_url = 'https://api.notion.com/v1/blocks/' + block_id + '/children'
+        response = requests.get(url=notion_block_url, headers=self.headers)
 
         return response
