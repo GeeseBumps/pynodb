@@ -54,3 +54,9 @@ class NotionDatabaseClient:
         response = requests.get(url=notion_block_url, headers=self.headers)
 
         return response
+    
+    def get_page(self, page_id):
+        notion_page_url = 'https://api.notion.com/v1/pages/' + page_id
+        response = requests.get(notion_page_url, headers=self.headers)
+
+        return response
