@@ -13,7 +13,10 @@ class DatabaseParser:
             "rich_text": lambda x: self._parse_rich_text_value(x),
             "checkbox": lambda x: self._parse_checkbox_value(x),
             "title": lambda x: self._parse_title_value(x),
-            "people": lambda x: self._parse_people_value(x)
+            "people": lambda x: self._parse_people_value(x),
+            "relation": lambda x: self._parse_relation_value(x),
+            "rollup": lambda x: self._parse_rollup_value(x),
+            "formula": lambda x: self._parse_formula_value(x),
         }
         self.parsed_database = self._parse_database(database)
 
@@ -78,11 +81,33 @@ class DatabaseParser:
             return text
         return None
     
+    def _parse_relation_value(self, value_data):
+        if len(value_data) != 0:
+            values = []
+            for relation in value_data:
+                values.append(relation["id"])
+            return values
+        return None
+    
+    def _parse_rollup_value(self, value_data):
+        if value_data:
+            if value_data["type"] == "array":
+                type = value_data["array"][0]["type"]
+                return value_data["array"][0][type]
+        return None
+    
+    def _parse_formula_value(self, value_data):
+        if value_data:
+            type = value_data["type"]
+            return value_data[type]
+        return None
+    
     def _parse_database(self, database):
         parsed_database = []
         for page in database:
             _temp_page = {}
             _temp_page["page_id"] = page["id"]
+            _temp_page["page_url"] = page["url"]
             for property_name in page["properties"]:
                 property_data = {}
                 property_metadata = page["properties"][property_name]
