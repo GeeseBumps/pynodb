@@ -73,12 +73,15 @@ for page in parsed_database:
 **NotionDatabaseClient**  
 This module is for using Notion API. You can fetch, update Notion database and create, update Notion pages using this module.  
 
-| Method            | Parameter                   | Description                                                                 |
-|-------------------|-----------------------------|-----------------------------------------------------------------------------|
-| fetch_database()  | `limit(=None)`, `filter(=None)` | Fetch all data from database. You can set limit(number of pages you want) and filter(query condition, please see this [link](https://developers.notion.com/reference/post-database-query)) for this method. |
-| update_database() | `data`(json type body)| Update database. Please see this [link](https://developers.notion.com/reference/update-a-database) for `data` parameter|
-| create_page()     | `data`(json type body)| Create page. Please see this [link](https://developers.notion.com/reference/post-page) for `data` parameter|
-| update_page()     | `page_id`, `data`(json type body)| Update page. Please see this [link](https://developers.notion.com/reference/patch-page) for `data` parameter|
+| Method                 | Parameter                   | Description                                                                 |
+|------------------------|-----------------------------|-----------------------------------------------------------------------------|
+| fetch_database()       | `limit(=None)`, `filter(=None)` | Fetch all data from database. You can set limit(number of pages you want) and filter(query condition, please see this [link](https://developers.notion.com/reference/post-database-query)) for this method. |
+| update_database()      | `data`(json type body)| Update database. Please see this [link](https://developers.notion.com/reference/update-a-database) for `data` parameter. |
+| create_page()          | `data`(json type body)| Create page. Please see this [link](https://developers.notion.com/reference/post-page) for `data` parameter. |
+| update_page()          | `page_id`, `data`(json type body)| Update page. Please see this [link](https://developers.notion.com/reference/patch-page) for `data` parameter. |
+| get_page()             | `page_id` | Retrieve a page. Please see this [link](https://developers.notion.com/reference/retrieve-a-page). |
+| get_block_children()   | `block_id` | Retrieve a block. Please see this [link](https://developers.notion.com/reference/get-block-children). |
+| append_block_children()| `block_id`, `data`(json type body)| Append block children. Please see this [link](https://developers.notion.com/reference/patch-block-children) for `data` parameter. |
 
 **DatabaseParser**  
 There are only private methods in this class. You can only access varaibles.  
@@ -103,5 +106,7 @@ You can get any data type using **NotionDatabaseClient** since it gives you raw 
 7. DATE
 8. URL
 9. CHECKBOX
-
+10. RELATION
+11. ROLLUP (only array type)
+12. FORMULA
 
