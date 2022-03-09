@@ -1,3 +1,4 @@
+from typing import List
 import requests, json
 
 class NotionDatabaseClient:
@@ -6,7 +7,7 @@ class NotionDatabaseClient:
         self.database_query_url = "https://api.notion.com/v1/databases/" + database_id + "/query"
         self.database_patch_url = "https://api.notion.com/v1/databases/" + database_id
         
-    def fetch_database(self, limit=None, filter=None):
+    def fetch_database(self, limit=None, filter=None) -> List:
         has_more = True
         cursor_id = ""
         results = []
@@ -18,14 +19,18 @@ class NotionDatabaseClient:
             if cursor_id != "": 
                 data["start_cursor"] = cursor_id
             response = requests.post(self.database_query_url, headers=self.headers, data=json.dumps(data))
-            results += response.json()["results"]
-            if limit != None and len(results) >= limit:
-                break
-            if response.json()["has_more"] == True:
-                has_more = True
-                cursor_id = response.json()["next_cursor"]
-            else:
-                has_more = False
+            try:
+                results += response.json()["results"]
+                if limit != None and len(results) >= limit:
+                    break
+                if response.json()["has_more"] == True:
+                    has_more = True
+                    cursor_id = response.json()["next_cursor"]
+                else:
+                    has_more = False
+            except:
+                print("Database not found. Please check your database_id and secret_key")
+                return results
 
         if limit != None:
             results = results[:limit]

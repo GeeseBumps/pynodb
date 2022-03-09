@@ -109,3 +109,7 @@ You can get any data type using **NotionDatabaseClient** since it gives you raw 
 10. RELATION
 11. ROLLUP (only array type)
 12. FORMULA
+13. CREATED_TIME
+14. LAST_EDITED_TIME
+15. CREATED_BY
+16. LAST_EDITED_BY
