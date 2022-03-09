@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class DatabaseParser:
     def __init__(self, database):
         self.raw_database = database
@@ -17,6 +20,10 @@ class DatabaseParser:
             "relation": lambda x: self._parse_relation_value(x),
             "rollup": lambda x: self._parse_rollup_value(x),
             "formula": lambda x: self._parse_formula_value(x),
+            "created_time": lambda x: self._parse_timestamp_value(x),
+            "last_edited_time": lambda x: self._parse_timestamp_value(x),
+            "created_by": lambda x: self._parse_people_value(x),
+            "last_edited_by": lambda x: self._parse_people_value(x)
         }
         self.parsed_database = self._parse_database(database)
 
@@ -31,12 +38,17 @@ class DatabaseParser:
         return None
 
     def _parse_people_value(self, value_data):
-        if len(value_data) != 0:
-            values = []
-            for people in value_data:
-                values.append(people["name"])
-            return values
-        return None
+        if isinstance(value_data, dict):
+            return value_data["name"]
+        elif isinstance(value_data, list):
+            if len(value_data) != 0:
+                values = []
+                for people in value_data:
+                    values.append(people["name"])
+                return values
+            return None
+        else:
+            raise ValueError("Invalid people value. Must be a list or a dict.")
 
     def _parse_date_value(self, value_data):
         if value_data != None:
@@ -101,6 +113,9 @@ class DatabaseParser:
             type = value_data["type"]
             return value_data[type]
         return None
+
+    def _parse_timestamp_value(self, value_data):
+        return datetime.strptime(value_data, "%Y-%m-%dT%H:%M:%S.%fZ")
     
     def _parse_database(self, database):
         parsed_database = []
